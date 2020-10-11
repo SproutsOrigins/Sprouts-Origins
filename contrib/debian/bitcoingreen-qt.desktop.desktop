@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sprouts Origins
+Comment=Sprouts Origins P2P Cryptocurrency
+Exec=sproutsorigins-qt %u
+Terminal=false
+Type=Application
+Icon=sproutsorigins128
+MimeType=x-scheme-handler/sproutsorigins;
+Categories=Office;Finance;
+Name[en_US]=sproutsorigins-qt.desktop

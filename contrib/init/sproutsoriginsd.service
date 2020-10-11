@@ -1,0 +1,26 @@
+[Unit]
+Description=Sprouts Origins's distributed currency daemon
+After=network.target
+
+[Service]
+User=sproutsorigins
+Group=sproutsorigins
+
+Type=forking
+PIDFile=/var/lib/sproutsoriginsd/sproutsoriginsd.pid
+
+ExecStart=/usr/bin/sproutsoriginsd -daemon -pid=/var/lib/sproutsoriginsd/sproutsoriginsd.pid \
+          -conf=/etc/sproutsorigins/sproutsorigins.conf -datadir=/var/lib/sproutsoriginsd
+
+ExecStop=-/usr/bin/sproutsorigins-cli -conf=/etc/sproutsorigins/sproutsorigins.conf \
+         -datadir=/var/lib/sproutsoriginsd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
