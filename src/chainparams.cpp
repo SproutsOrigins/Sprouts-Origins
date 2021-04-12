@@ -133,6 +133,8 @@ public:
         // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0xde).convert_to_container<std::vector<unsigned char> >();
 
+ vSeeds.push_back(CDNSSeedData("216.21.165.61", "dnsseed.216.21.165.61"));
+         vSeeds.push_back(CDNSSeedData("216.21.165.61", "dnsseed.216.21.165.61"));
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fMiningRequiresPeers = true;
