@@ -112,7 +112,7 @@ public:
         nTargetSpacing = 2 * 60;  // Sprouts Origins: 2 minute blocks during POW (block 1-200)
         nMaturity = 5; // 6 block maturity (+1 elsewhere)
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 5000000 * COIN; // 5 million max supply
+        nMaxMoneyOut = 1000000000 * COIN; // 1 billion max supply
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 1; // we use the version 2 for SPRO
 
