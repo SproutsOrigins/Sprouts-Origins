@@ -42,7 +42,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("000009fef9f355526f255e79e21309f85b37691c9f9d0ad2cb8bfce28fb1e3e8"))
+    (0, uint256("0x000009fef9f355526f255e79e21309f85b37691c9f9d0ad2cb8bfce28fb1e3e8"))
    ;
 
 
@@ -115,8 +115,8 @@ public:
         genesis.nNonce = 31297;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("000009fef9f355526f255e79e21309f85b37691c9f9d0ad2cb8bfce28fb1e3e8"));
-       assert(genesis.hashMerkleRoot == uint256("9de98de0a4ae10c978327414448c6b1ce12435a8d32dbc59e62d6dd2649b9bbf"));
+        assert(hashGenesisBlock == uint256("0x000009fef9f355526f255e79e21309f85b37691c9f9d0ad2cb8bfce28fb1e3e8"));
+       assert(genesis.hashMerkleRoot == uint256("0x9de98de0a4ae10c978327414448c6b1ce12435a8d32dbc59e62d6dd2649b9bbf"));
 
 
         // Sprouts Origins addresses start with 'N'
