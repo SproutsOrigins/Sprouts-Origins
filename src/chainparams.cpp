@@ -82,7 +82,7 @@ public:
         pchMessageStart[1] = 0xdb;
         pchMessageStart[2] = 0x11;
         pchMessageStart[3] = 0xab;
-        vAlertPubKey = ParseHex("046e550a4a8f87cd42220c52c6458633a1bd4b2aa16e47dd6737534ebe5967557ebe4f9aa7ae99d20115036e20f9238d256f3808ae6c2493ee66fb102ebc1404b2");
+        vAlertPubKey = ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f");
         nDefaultPort = 6942;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         nSubsidyHalvingInterval = 1050000;
@@ -99,7 +99,7 @@ public:
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 1; // we use the version 2 for SPRO
 
-        const char* pszTimestamp = "Sprouts now uses as less energy then most coins";
+        const char* pszTimestamp = "Don't work for weekends, work for our goals.";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -260,14 +260,14 @@ public:
         nTargetTimespan = 24 * 60 * 60; // Sprouts Origins: 1 day
         nTargetSpacing = 2 * 60;        // Sprouts Origins: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1618116887;
-        genesis.nBits = 0x207fffff;
-        genesis.nNonce = 20542302;
+        genesis.nTime = 1623595874;
+        genesis.nBits = 0x1e0ffff0;
+        genesis.nNonce = 31297;
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 26942;
-       assert(hashGenesisBlock == uint256("0x2b416cf2af64fd34fb018693506ec2708a1c0a33c30b0b1f516e4fbb91e5de4c"));
-   assert(genesis.hashMerkleRoot == uint256("0x6fbb2f1eb70b3177fac50e8ac23b6137303525680676ece6c3bd31d8aace8c83"));
+       assert(hashGenesisBlock == uint256("000009fef9f355526f255e79e21309f85b37691c9f9d0ad2cb8bfce28fb1e3e8"));
+   assert(genesis.hashMerkleRoot == uint256("9de98de0a4ae10c978327414448c6b1ce12435a8d32dbc59e62d6dd2649b9bbf"));
   
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
