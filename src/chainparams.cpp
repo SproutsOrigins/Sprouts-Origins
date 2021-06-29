@@ -42,13 +42,12 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (10, uint256S("1fa1b88c3178aab40f16bed76a3048a03212cb7501ee4fbc77c89acacc185f77")),
-    (200, uint256S("0000006d51138835a5fcec34ef198d598806f3312ceefd94909781ef9ec12839")),
-    (500, uint256S("8fc636c4417faf3bcd9b0eb10aaed0af3804c677a0f62be588e34d78bad3314f")),
-    (2000, uint256S("0eff4205277fa9e38a07a851e3da995dddb5b6588141327af34c887877e13c29")),
-    (4000, uint256S("bd3d3ebbdefee8a16d1dae1660ccb96dd696ef36a46d6dba0f24474bb495e3fc")),
-    (5878, uint256S("199a7dfa80dce4b5a8d05af8a00e8bf2fee27bd1312e2afb260d4a25e7fd9efb")),
-   ;
+    (10, uint256S("1fa1b88c3178aab40f16bed76a3048a03212cb7501ee4fbc77c89acacc185f77"))
+    (200, uint256S("0000006d51138835a5fcec34ef198d598806f3312ceefd94909781ef9ec12839"))
+    (500, uint256S("8fc636c4417faf3bcd9b0eb10aaed0af3804c677a0f62be588e34d78bad3314f"))
+    (2000, uint256S("0eff4205277fa9e38a07a851e3da995dddb5b6588141327af34c887877e13c29"))
+    (4000, uint256S("bd3d3ebbdefee8a16d1dae1660ccb96dd696ef36a46d6dba0f24474bb495e3fc"))
+    (5878, uint256S("199a7dfa80dce4b5a8d05af8a00e8bf2fee27bd1312e2afb260d4a25e7fd9efb"));
 
 
 static const Checkpoints::CCheckpointData data = {
@@ -144,7 +143,7 @@ public:
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0xde).convert_to_container<std::vector<unsigned char> >();
 
  vSeeds.push_back(CDNSSeedData("216.21.165.61", "dnsseed.216.21.165.61"));
-         vSeeds.push_back(CDNSSeedData("216.21.165.61", "dnsseed.216.21.165.61"));
+         vSeeds.push_back(CDNSSeedData("155.138.218.214", "dnsseed.155.138.218.214"));
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 vSeeds.push_back(CDNSSeedData("46.41.136.49", "dnsseed.46.41.136.49"));
          vSeeds.push_back(CDNSSeedData("3.12.21.221", "dnsseed.3.12.21.221"));
@@ -158,7 +157,7 @@ vSeeds.push_back(CDNSSeedData("46.41.136.49", "dnsseed.46.41.136.49"));
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "04e353ffc98f0a00f6af1783315651faed2e0d7d534b353a189adc75260ab2ffbf3ed1af577bebb134045966507db26227f6829902ba0fd820f824d4a54561c041";
+        strSporkKey = "04816215c032c5a1dda9012c5bbe1f71624db3771b44d9a895710b5f5a86fef144652a891b0fd4b79a26c2d4ad8c242d36c87c9e512a3f803ed8ae1db124005084";
         strMasternodePoolDummyAddress = "NYrgAbKm4x45meCzitYJzc2EBh5YpXerDn";
         nStartMasternodePayments = 1618116637;
 
