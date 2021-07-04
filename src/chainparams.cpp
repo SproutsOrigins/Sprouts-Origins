@@ -150,7 +150,7 @@ public:
         consensus.height_ZC_RecalcAccumulators      = disabled;
 
         // validation by-pass
-        // consensus.nPivxBadBlockTime k= disabled;
+        // consensus.nPivxBadBlockTime = disabled;
         // consensus.nPivxBadBlockBits = 0x00;
 
         // Zerocoin-related params
@@ -197,15 +197,15 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x52;
-        pchMessageStart[1] = 0xdb;
-        pchMessageStart[2] = 0x11;
-        pchMessageStart[3] = 0xab;
+         pchMessageStart[0] = 0x52;
+         pchMessageStart[1] = 0xdb;
+         pchMessageStart[2] = 0x11;
+         pchMessageStart[3] = 0xab;
         nDefaultPort = 6942;
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back(CDNSSeedData("155.138.218.214", "155.138.218.214", true));
-
+        vSeeds.emplace_back(CDNSSeedData("216.21.165.61", "216.21.165.61", true));
+        
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 6);

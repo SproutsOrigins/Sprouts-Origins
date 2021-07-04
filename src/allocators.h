@@ -1,10 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
+// Copyright (c) 2020-2021 The Sprouts-Origins Core Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_ALLOCATORS_H
 #define BITCOIN_ALLOCATORS_H
+
+#include "support/cleanse.h"
 
 #include <map>
 #include <string.h>
@@ -13,8 +16,6 @@
 
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/once.hpp>
-
-#include <openssl/crypto.h> // for OPENSSL_cleanse()
 
 /**
  * Thread-safe class to keep track of locked (ie, non-swappable) memory pages.
@@ -161,23 +162,6 @@ private:
 };
 
 //
-// Functions for directly locking/unlocking memory objects.
-// Intended for non-dynamically allocated structures.
-//
-template <typename T>
-void LockObject(const T& t)
-{
-    LockedPageManager::Instance().LockRange((void*)(&t), sizeof(T));
-}
-
-template <typename T>
-void UnlockObject(const T& t)
-{
-    OPENSSL_cleanse((void*)(&t), sizeof(T));
-    LockedPageManager::Instance().UnlockRange((void*)(&t), sizeof(T));
-}
-
-//
 // Allocator that locks its contents from being paged
 // out of memory and clears its contents before deletion.
 //
@@ -216,7 +200,7 @@ struct secure_allocator : public std::allocator<T> {
     void deallocate(T* p, std::size_t n)
     {
         if (p != NULL) {
-            OPENSSL_cleanse(p, sizeof(T) * n);
+            memory_cleanse(p, sizeof(T) * n);
             LockedPageManager::Instance().UnlockRange(p, sizeof(T) * n);
         }
         std::allocator<T>::deallocate(p, n);
@@ -253,7 +237,7 @@ struct zero_after_free_allocator : public std::allocator<T> {
     void deallocate(T* p, std::size_t n)
     {
         if (p != NULL)
-            OPENSSL_cleanse(p, sizeof(T) * n);
+            memory_cleanse(p, sizeof(T) * n);
         std::allocator<T>::deallocate(p, n);
     }
 };

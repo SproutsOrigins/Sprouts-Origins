@@ -1,54 +1,63 @@
-Sprouts Origins Core
-=====================
+Sprouts-Origins Core
+=============
 
 Setup
 ---------------------
-[Sprouts Origins Core](https://www.sprocrypto.com) is the original Sprouts Origins client and it builds the backbone of the network. However, it downloads and stores the entire history of Sprouts Origins transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[Sprouts-Origins Core](https://sappcoin.com/#wallets) is the original Sprouts-Origins client and it builds the backbone of the network. However, it downloads and stores the entire history of Sprouts-Origins transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Sprouts Origins on your native platform.
+The following are some helpful notes on how to run Sprouts-Origins Core on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- bin/32/sproutsorigins-qt (GUI, 32-bit) or bin/32/sproutsoriginsd (headless, 32-bit)
-- bin/64/sproutsorigins-qt (GUI, 64-bit) or bin/64/sproutsoriginsd (headless, 64-bit)
+- `bin/Sprouts-Origins-qt` (GUI) or
+- `bin/Sprouts-Originsd` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run sproutsorigins-qt.exe.
+Unpack the files into a directory, and then run Sprouts-Origins-qt.exe.
 
-### OSX
+### macOS
 
-Drag Sprouts Origins-Qt to your applications folder, and then run Sprouts Origins-Qt.
+Drag Sprouts-Origins-Qt to your applications folder, and then run Sprouts-Origins-Qt.
 
 ### Need Help?
 
-* Join our Discord server [Discord Server](https://discordapp.com/invite/9nzt37V)
+* See the documentation at the [Sprouts-Origins Docs](https://github.com/sappcoin-com/Sprouts/tree/master/doc)
+for help and more information.
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=5144109) or on the [Sprouts-Origins Telegram](https://t.me/Sprouts-Originscore).
+* Join our Discord server [Discord Server](https://discord.gg/zgcXB76)
 
 Building
 ---------------------
-The following are developer notes on how to build Sprouts Origins on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Sprouts-Origins Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
-- [OSX Build Notes](build-osx.md)
+- [Dependencies](dependencies.md)
+- [macOS Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
+- [Windows Build Notes](build-windows.md)
 - [Gitian Building Guide](gitian-building.md)
 
 Development
 ---------------------
-The Sprouts Origins repo's [root README](https://github.com/sproutsorigins/sproutsorigins/blob/master/README.md) contains relevant information on the development process and automated testing.
+The Sprouts-Origins repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://dev.visucore.com/bitcoin/doxygen/) ***TODO***
+- [Source Code Documentation (External Link)](https://www.fuzzbawls.pw/pivx/doxygen/)
 - [Translation Process](translation_process.md)
 - [Unit Tests](unit-tests.md)
 - [Unauthenticated REST Interface](REST-interface.md)
 - [Dnsseed Policy](dnsseed-policy.md)
+
+### Resources
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=5144109) or the [Sprouts-Origins Telegram](https://t.me/Sprouts-Originscore).
+* Join the [Sprouts-Origins Discord](https://discord.gg/zgcXB76).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
@@ -58,6 +67,6 @@ The Sprouts Origins repo's [root README](https://github.com/sproutsorigins/sprou
 
 License
 ---------------------
-Distributed under the [MIT/X11 software license](http://www.opensource.org/licenses/mit-license.php).
+Distributed under the [MIT software license](/COPYING).
 This product includes software developed by the OpenSSL Project for use in the [OpenSSL Toolkit](https://www.openssl.org/). This product includes
 cryptographic software written by Eric Young ([eay@cryptsoft.com](mailto:eay@cryptsoft.com)), and UPnP software written by Thomas Bernard.

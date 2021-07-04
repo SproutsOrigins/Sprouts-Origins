@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Sprouts-Origins Core
+Comment=Sprouts-Origins P2P Cryptocurrency
+Comment[fr]=Sprouts-Origins, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Sprouts-Origins, eşten eşe kriptografik sanal para birimi
+Exec=pivx-qt %u
+Terminal=false
+Type=Application
+Icon=pivx128
+MimeType=x-scheme-handler/pivx;
+Categories=Office;Finance;
+StartupWMClass=Pivx-qt

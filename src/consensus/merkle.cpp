@@ -1,4 +1,5 @@
 // Copyright (c) 2015 The Bitcoin Core developers
+// Copyright (c) 2020-2021 The Sprouts-Origins Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,13 +11,11 @@
        and/or designing a new system that will use merkle trees, keep in mind
        that the following merkle tree algorithm has a serious flaw related to
        duplicate txids, resulting in a vulnerability (CVE-2012-2459).
-
        The reason is that if the number of hashes in the list at a given time
        is odd, the last one is duplicated before computing the next level (which
        is unusual in Merkle trees). This results in certain sequences of
        transactions leading to the same merkle root. For example, these two
        trees:
-
                     A               A
                   /  \            /   \
                 B     C         B       C
@@ -24,11 +23,9 @@
               D   E   F       D   E   F   F
              / \ / \ / \     / \ / \ / \ / \
              1 2 3 4 5 6     1 2 3 4 5 6 5 6
-
        for transaction lists [1,2,3,4,5,6] and [1,2,3,4,5,6,5,6] (where 5 and
        6 are repeated) result in the same root hash A (because the hash of both
        of (F) and (F,F) is C).
-
        The vulnerability results from being able to send a block with such a
        transaction list, with the same merkle root, and the same block hash as
        the original without duplication, resulting in failed validation. If the
@@ -161,22 +158,6 @@ uint256 BlockMerkleRoot(const CBlock& block, bool* mutated)
     leaves.resize(block.vtx.size());
     for (size_t s = 0; s < block.vtx.size(); s++) {
         leaves[s] = block.vtx[s].GetHash();
-    }
-    return ComputeMerkleRoot(leaves, mutated);
-}
-
-uint256 BlockWitnessMerkleRoot(const CBlock& block, bool* mutated, bool* pfProofOfStake)
-{
-    bool fProofOfStake = pfProofOfStake ? *pfProofOfStake : block.IsProofOfStake();
-    std::vector<uint256> leaves;
-    leaves.resize(block.vtx.size());
-    leaves[0] = uint256(0); // The witness hash of the coinbase is 0.
-    if(fProofOfStake)
-    {
-        leaves[1].SetNull(); // The witness hash of the coinstake is 0.
-    }
-    for (size_t s = 1 + (fProofOfStake ? 1 : 0); s < block.vtx.size(); s++) {
-        leaves[s] = block.vtx[s].GetWitnessHash();
     }
     return ComputeMerkleRoot(leaves, mutated);
 }

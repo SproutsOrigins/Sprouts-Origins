@@ -1,44 +1,16 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2020-2021 The Sprouts-Origins Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "arith_uint256.h"
 
 #include "crypto/common.h"
-#include "uint256.h"
-#include "uint512.h"
 #include "utilstrencodings.h"
 
 #include <stdio.h>
 #include <string.h>
-
-
-template <>
-std::string base_uint<256>::GetHex() const
-{
-    return ArithToUint256(*this).GetHex();
-}
-
-template <>
-void base_uint<256>::SetHex(const char* psz)
-{
-    *this = UintToArith256(uint256S(psz));
-}
-
-template <>
-std::string base_uint<512>::GetHex() const
-{
-    return ArithToUint512(*this).GetHex();
-}
-
-
-template <>
-void base_uint<512>::SetHex(const char* psz)
-{
-    *this = UintToArith512(uint512S(psz));
-}
-
 
 template <unsigned int BITS>
 base_uint<BITS>::base_uint(const std::string& str)
@@ -181,6 +153,44 @@ double base_uint<BITS>::getdouble() const
 }
 
 template <unsigned int BITS>
+std::string base_uint<BITS>::GetHex() const
+{
+    char psz[sizeof(pn) * 2 + 1];
+    for (unsigned int i = 0; i < sizeof(pn); i++)
+        sprintf(psz + i * 2, "%02x", ((unsigned char*)pn)[sizeof(pn) - i - 1]);
+    return std::string(psz, psz + sizeof(pn) * 2);
+}
+
+template <unsigned int BITS>
+void base_uint<BITS>::SetHex(const char* psz)
+{
+    memset(pn, 0, sizeof(pn));
+
+    // skip leading spaces
+    while (isspace(*psz))
+        psz++;
+
+    // skip 0x
+    if (psz[0] == '0' && tolower(psz[1]) == 'x')
+        psz += 2;
+
+    // hex string to uint
+    const char* pbegin = psz;
+    while (::HexDigit(*psz) != -1)
+        psz++;
+    psz--;
+    unsigned char* p1 = (unsigned char*)pn;
+    unsigned char* pend = p1 + WIDTH * 4;
+    while (psz >= pbegin && p1 < pend) {
+        *p1 = ::HexDigit(*psz--);
+        if (psz >= pbegin) {
+            *p1 |= ((unsigned char)::HexDigit(*psz--) << 4);
+            p1++;
+        }
+    }
+}
+
+template <unsigned int BITS>
 void base_uint<BITS>::SetHex(const std::string& str)
 {
     SetHex(str.c_str());
@@ -190,6 +200,15 @@ template <unsigned int BITS>
 std::string base_uint<BITS>::ToString() const
 {
     return (GetHex());
+}
+
+template <unsigned int BITS>
+std::string base_uint<BITS>::ToStringReverseEndian() const
+{
+    char psz[sizeof(pn) * 2 + 1];
+    for (unsigned int i = 0; i < sizeof(pn); i++)
+        sprintf(psz + i * 2, "%02x", ((unsigned char*)pn)[i]);
+    return std::string(psz, psz + sizeof(pn) * 2);
 }
 
 template <unsigned int BITS>
@@ -207,6 +226,23 @@ unsigned int base_uint<BITS>::bits() const
     return 0;
 }
 
+// Explicit instantiations for base_uint<160>
+template base_uint<160>::base_uint(const std::string&);
+template base_uint<160>::base_uint(const std::vector<unsigned char>&);
+template base_uint<160>& base_uint<160>::operator<<=(unsigned int);
+template base_uint<160>& base_uint<160>::operator>>=(unsigned int);
+template base_uint<160>& base_uint<160>::operator*=(uint32_t b32);
+template base_uint<160>& base_uint<160>::operator*=(const base_uint<160>& b);
+template base_uint<160>& base_uint<160>::operator/=(const base_uint<160>& b);
+template int base_uint<160>::CompareTo(const base_uint<160>&) const;
+template bool base_uint<160>::EqualTo(uint64_t) const;
+template double base_uint<160>::getdouble() const;
+template std::string base_uint<160>::GetHex() const;
+template std::string base_uint<160>::ToString() const;
+template void base_uint<160>::SetHex(const char*);
+template void base_uint<160>::SetHex(const std::string&);
+template unsigned int base_uint<160>::bits() const;
+
 // Explicit instantiations for base_uint<256>
 template base_uint<256>::base_uint(const std::string&);
 template base_uint<256>::base_uint(const std::vector<unsigned char>&);
@@ -218,26 +254,20 @@ template base_uint<256>& base_uint<256>::operator/=(const base_uint<256>& b);
 template int base_uint<256>::CompareTo(const base_uint<256>&) const;
 template bool base_uint<256>::EqualTo(uint64_t) const;
 template double base_uint<256>::getdouble() const;
+template std::string base_uint<256>::GetHex() const;
 template std::string base_uint<256>::ToString() const;
 template void base_uint<256>::SetHex(const char*);
 template void base_uint<256>::SetHex(const std::string&);
 template unsigned int base_uint<256>::bits() const;
+template std::string base_uint<256>::ToStringReverseEndian() const;
 
 // Explicit instantiations for base_uint<512>
 template base_uint<512>::base_uint(const std::string&);
-template base_uint<512>::base_uint(const std::vector<unsigned char>&);
 template base_uint<512>& base_uint<512>::operator<<=(unsigned int);
 template base_uint<512>& base_uint<512>::operator>>=(unsigned int);
-template base_uint<512>& base_uint<512>::operator*=(uint32_t b32);
-template base_uint<512>& base_uint<512>::operator*=(const base_uint<512>& b);
-template base_uint<512>& base_uint<512>::operator/=(const base_uint<512>& b);
-template int base_uint<512>::CompareTo(const base_uint<512>&) const;
-template bool base_uint<512>::EqualTo(uint64_t) const;
-template double base_uint<512>::getdouble() const;
+template std::string base_uint<512>::GetHex() const;
 template std::string base_uint<512>::ToString() const;
-//template void base_uint<512>::SetHex(const char*);
-template void base_uint<512>::SetHex(const std::string&);
-template unsigned int base_uint<512>::bits() const;
+template std::string base_uint<512>::ToStringReverseEndian() const;
 
 // This implementation directly uses shifts instead of going
 // through an intermediate MPI representation.
@@ -256,8 +286,8 @@ arith_uint256& arith_uint256::SetCompact(uint32_t nCompact, bool* pfNegative, bo
         *pfNegative = nWord != 0 && (nCompact & 0x00800000) != 0;
     if (pfOverflow)
         *pfOverflow = nWord != 0 && ((nSize > 34) ||
-                                        (nWord > 0xff && nSize > 33) ||
-                                        (nWord > 0xffff && nSize > 32));
+                                     (nWord > 0xff && nSize > 33) ||
+                                     (nWord > 0xffff && nSize > 32));
     return *this;
 }
 
@@ -282,35 +312,4 @@ uint32_t arith_uint256::GetCompact(bool fNegative) const
     nCompact |= nSize << 24;
     nCompact |= (fNegative && (nCompact & 0x007fffff) ? 0x00800000 : 0);
     return nCompact;
-}
-
-uint256 ArithToUint256(const arith_uint256& a)
-{
-    uint256 b;
-    for (int x = 0; x < a.WIDTH; ++x)
-        WriteLE32(b.begin() + x * 4, a.pn[x]);
-    return b;
-}
-arith_uint256 UintToArith256(const uint256& a)
-{
-    arith_uint256 b;
-    for (int x = 0; x < b.WIDTH; ++x)
-        b.pn[x] = ReadLE32(a.begin() + x * 4);
-    return b;
-}
-
-uint512 ArithToUint512(const arith_uint512& a)
-{
-    uint512 b;
-    for (int x = 0; x < a.WIDTH; ++x)
-        WriteLE32(b.begin() + x * 4, a.pn[x]);
-    return b;
-}
-
-arith_uint512 UintToArith512(const uint512& a)
-{
-    arith_uint512 b;
-    for (int x = 0; x < b.WIDTH; ++x)
-        b.pn[x] = ReadLE32(a.begin() + x * 4);
-    return b;
 }
